@@ -9,6 +9,7 @@ public class Pager {
 	
 	private Long page;			// 페이지 번호
 	private Long perPage; 		// 페이지당 출력갯수
+	
 	private Long startIndex;
 	
 	private Long totalPage;

@@ -50,37 +50,29 @@
 
                     <!-- Content Row -->
                     <div class="row">
-						<form action="" method="post" enctype="multipart/form-data">
-							<div class="mb-3">
-							  <label for="title" class="form-label">제목</label>
-							  <input type="text" name="boardTitle" class="form-control" id="title">
-							</div>
-							<div class="mb-3">
-							  <label for="writer" class="form-label">작성자</label>
-							  <input type="text" name="boardWriter" class="form-control" id="writer">
-							</div>
-							<div class="mb-3">
-							  <label for="contents" class="form-label">내용</label>
-							  <textarea class="form-control" name="boardContents" id="contents" rows="3"></textarea>
-							</div>
-
-                            <div class="mb-3">
-                                <input type="file" name="attach">
-                                <input type="file" name="attach">
-                                <input type="file" name="attach">
-                            </div>
-
-							<div class="mb-3">
-								<button class="btn btn-danger">작성</button>
-							</div>
-						</form>
-						
+						<h3>${vo.boardTitle}</h3>
+						<h3>${vo.boardContents}</h3>
                     </div>
+                    <c:forEach items="${vo.fileVOs}" var="file">
+						<a href="/files/${board}/${file.fileName}">${file.oriName}</a>
+					</c:forEach>
 
                 </div>
                 <!-- /.container-fluid -->
-
+				
             </div>
+            
+            <div class="my-3">
+				<div class="mb-3">
+				  <label for="userId" class="form-label">이름</label>
+				  <input type="text" name="userName" class="form-control" id="userId">
+				</div>
+				<div class="mb-3">
+				  <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+				  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+				</div>
+            </div>
+            
             <!-- End of Main Content -->
 			
             <!-- Footer -->

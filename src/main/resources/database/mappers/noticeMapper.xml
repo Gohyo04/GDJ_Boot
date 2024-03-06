@@ -27,8 +27,46 @@
  		LIKE CONCAT('%', #{search}, '%')
  	</select>
  	
- 	<insert id="add" parameterType="BoardVO">
+ 	<select id="getDetail" parameterType="BoardVO" resultMap="getDetailResult">
+ 		SELECT * 
+ 		FROM NOTICE N
+	 		LEFT JOIN
+	 		NOTICEFILES NF
+	 		USING(BOARDNUM)
+	 	WHERE BOARDNUM=#{boardNum} 
+ 	</select>
+ 	
+ 	<resultMap type="NoticeVO" id="getDetailResult">
+ 		<id column="BOARDNUM" property="boardNum"/>
+ 		<result column="BOARDTITLE" property="boardTitle"/>
+ 		<result column="BOARDWRITER" property="boardWriter"/>
+ 		<result column="BOARDCONTENTS" property="boardContents"/>
+ 		<result column="BOARDDATE" property="boardDate"/>
+ 		<result column="BOARDHIT" property="boardHit"/>
+ 		<collection property="fileVOs" javaType="List" ofType="FileVO">
+ 			<id column="FILENUM" property="fileNum"/>
+ 			<result column="FILENAME" property="fileName"/>
+ 			<result column="ORINAME" property="oriName"/>
+ 		</collection>
+ 	</resultMap>
+ 	
+ 	<insert id="add" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="boardNum">
  		INSERT INTO NOTICE (BOARDNUM, BOARDWRITER, BOARDTITLE, BOARDCONTENTS, BOARDDATE, BOARDHIT)
- 		VALUES (NULL, #{boardWriter}, #{boardTitle}, #{boardContents}, now(), 0)
+ 		VALUES (#{boardNum}, #{boardWriter}, #{boardTitle}, #{boardContents}, now(), 0)
+ 	</insert>
+ 	
+ 	<insert id="addFile" parameterType="FileVO">
+ 		INSERT INTO NOTICEFILES 
+ 		VALUES (NULL, #{noticeNum}, #{fileName}, #{oriName})
  	</insert>
  </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

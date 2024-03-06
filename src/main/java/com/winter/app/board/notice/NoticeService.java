@@ -3,17 +3,30 @@ package com.winter.app.board.notice;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardService;
 import com.winter.app.board.BoardVO;
+import com.winter.app.board.FileVO;
+import com.winter.app.util.FileManager;
 import com.winter.app.util.Pager;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class NoticeService implements BoardService{
 
 	@Autowired
 	private NoticeDAO noticeDAO;
+	
+	@Value("${app.upload.board.noitce}")
+	private String uploadPath;
+	
+	@Autowired
+	private FileManager fileManager;
 	
 	@Override
 	public List<BoardVO> getList(Pager pager) throws Exception {
@@ -24,11 +37,29 @@ public class NoticeService implements BoardService{
 	}
 
 	@Override
-	public int add(BoardVO boardVO) throws Exception {
+	public int add(BoardVO boardVO, MultipartFile[] attach) throws Exception {
 		int result = noticeDAO.add(boardVO);
+		
+		for(MultipartFile multipartFile : attach) {
+			if(multipartFile.isEmpty()) {
+				continue;
+			}
+			
+			String fileName = fileManager.fileSave(uploadPath, multipartFile);
+			FileVO fileVO = new FileVO();
+			fileVO.setNoticeNum(boardVO.getBoardNum());
+			fileVO.setFileName(fileName);
+			fileVO.setOriName(multipartFile.getOriginalFilename());
+			
+			noticeDAO.addFile(fileVO);
+			log.warn("FileName : =={}==",fileName);
+		}
 		return result;
 	}
-	
+	@Override
+	public BoardVO getDetail(BoardVO boardVO) throws Exception {
+		return noticeDAO.getDetail(boardVO);
+	}
 }
 
 
