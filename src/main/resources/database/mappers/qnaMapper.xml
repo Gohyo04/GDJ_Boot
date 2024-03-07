@@ -2,13 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.winter.app.board.qna.QnaDAO">
+<mapper namespace="com.winter.app.board.reply.ReplyDAO">
  	<insert id="addReply" parameterType="ReplyVO">
  		INSERT INTO REPLY (REPLYNUM, USERNAME, BOARDNUM, REPLYCONTENTS, REPLYDATE) 
  		VALUES (null, #{userName}, #{boardNum}, #{replyContents}, #{replyDate}) 
  	</insert>
- 	
- 	<update id="refUpdate" parameterType="BoardVO"></update>
 </mapper>
  
  

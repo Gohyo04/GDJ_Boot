@@ -9,5 +9,6 @@
  		<typeAlias type="com.winter.app.util.Pager" alias="Pager"/>
  		<typeAlias type="com.winter.app.board.FileVO" alias="FileVO"/>
  		<typeAlias type="com.winter.app.board.reply.ReplyVO" alias="ReplyVO"/>
+ 		<typeAlias type="com.winter.app.board.qna.QnaDAO" alias="QnaDAO"/>
  	</typeAliases>
  </configuration>
