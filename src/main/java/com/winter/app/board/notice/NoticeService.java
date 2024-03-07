@@ -47,7 +47,7 @@ public class NoticeService implements BoardService{
 			
 			String fileName = fileManager.fileSave(uploadPath, multipartFile);
 			FileVO fileVO = new FileVO();
-			fileVO.setNoticeNum(boardVO.getBoardNum());
+			fileVO.setBoardNum(boardVO.getBoardNum());
 			fileVO.setFileName(fileName);
 			fileVO.setOriName(multipartFile.getOriginalFilename());
 			
@@ -59,6 +59,11 @@ public class NoticeService implements BoardService{
 	@Override
 	public BoardVO getDetail(BoardVO boardVO) throws Exception {
 		return noticeDAO.getDetail(boardVO);
+	}
+	
+	@Override
+	public FileVO getFileDetail(FileVO fileVO) throws Exception {
+		return noticeDAO.getFileDetail(fileVO);
 	}
 }
 

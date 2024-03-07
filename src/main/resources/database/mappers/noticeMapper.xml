@@ -57,8 +57,12 @@
  	
  	<insert id="addFile" parameterType="FileVO">
  		INSERT INTO NOTICEFILES 
- 		VALUES (NULL, #{noticeNum}, #{fileName}, #{oriName})
+ 		VALUES (NULL, #{boardNum}, #{fileName}, #{oriName})
  	</insert>
+ 	
+ 	<select id="getFileDetail" parameterType="FileVO" resultType="FileVO">
+ 		SELECT * FROM NOTICEFILES WHERE FILENUM=#{fileNum}
+ 	</select>
  </mapper>
  
  
