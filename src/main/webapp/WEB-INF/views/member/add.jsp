@@ -51,34 +51,83 @@
 
                     <!-- Content Row -->
                     <div class="row">
-						<form:form modelAttribute="memberVO" method="post" cssClass="">
-							<!-- userName (id) -->
-							<form:input path="username"/>
-							<form:errors path="username"></form:errors>
-							
-							<!-- password -->
-							<form:input path="password"/>
-							<form:errors path="password"></form:errors>
-							
-							<!-- password 검증-->
-							<%-- <form:input path="password2"/> --%>
-							
-							<!-- phone -->
-							<form:input path="phone"/>
-							
-							<!-- email -->
-							<form:input path="email"/>
-							<form:errors path="email"></form:errors>
-							
-							<!-- address -->
-							<form:input path="address"/>
-							
-							<!-- name -->
-							<form:input path="name"/>
-							
-							<!-- button -->
-							<form:button>가입</form:button>
-						</form:form>
+						    <div class="container">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Member Join!</h1>
+                                    </div>
+                                    <form:form class="user" modelAttribute="memberVO">
+                                        <div class="form-group">
+                                            <form:input path="username" cssclass="form-control form-control-user"
+                                                id="username"></form:input>
+                                            <form:errors path="username"></form:errors>
+                                        </div>
+                                        <div class="form-group">
+                                            <form:password path="password" cssclass="form-control form-control-user"
+                                                id="password"></form:password>
+                                            <form:errors path="password"></form:errors>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <form:password path="passwordCheck" cssclass="form-control form-control-user"
+                                                id="passwordCheck"></form:password>
+                                            <form:errors path="passwordCheck"></form:errors>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <form:input path="phone" cssclass="form-control form-control-user"
+                                                id="phone"></form:input>
+                                            <form:errors path="phone"></form:errors>
+                                        </div>
+                                        <div class="form-group">
+                                            <form:input path="email" cssclass="form-control form-control-user"
+                                                id="email"></form:input>
+                                            <form:errors path="email"></form:errors>
+                                        </div>
+                                        <div class="form-group">
+                                            <form:input path="address" cssclass="form-control form-control-user"
+                                                id="address"></form:input>
+                                            <form:errors path="address"></form:errors>
+                                        </div>
+                                        <div class="form-group">
+                                            <form:input path="name" cssclass="form-control form-control-user"
+                                                id="name"></form:input>
+                                            <form:errors path="name"></form:errors>
+                                        </div>
+                                        
+                                        
+										<button class="btn btn-primary btn-user btn-block">Join</button>
+                                        <hr>
+                                        <a href="index.html" class="btn btn-google btn-user btn-block">
+                                            <i class="fab fa-google fa-fw"></i> Login with Google
+                                        </a>
+                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                        </a>
+                                    </form:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
                     </div>
 
                 </div>

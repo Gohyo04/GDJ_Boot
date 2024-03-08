@@ -9,7 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
+@Setter 
 @ToString
 public class MemberVO {
 	
@@ -18,9 +18,11 @@ public class MemberVO {
 	@NotBlank
 	@Size(min=8, max=16)
 	private String password;
-	@NotBlank
-	@Pattern(regexp = "")
+	
+	private String passwordCheck;
+
 	private String phone;
+	
 	@Email
 	private String email;
 	private String address;
