@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.winter.app.member.groups.MemberJoinGroup;
 import com.winter.app.member.groups.MemberUpdateGroup;
 
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
