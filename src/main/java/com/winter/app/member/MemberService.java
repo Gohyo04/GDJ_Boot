@@ -43,5 +43,12 @@ public class MemberService {
 		return check;
 	}
 	
-
+	// 삭제할 메서드
+	public MemberVO detail() throws Exception{
+		MemberVO memberVO = new MemberVO();
+		memberVO.setUsername("user1");
+		return memberDAO.getDetail(memberVO);
+	}
+	
+	
 }
