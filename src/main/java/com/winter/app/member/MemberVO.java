@@ -42,6 +42,7 @@ public class MemberVO implements UserDetails{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	// true 일때 만료x, 잠김x, 사용o 
 	@Override	// 계정 만료?
 	public boolean isAccountNonExpired() {
