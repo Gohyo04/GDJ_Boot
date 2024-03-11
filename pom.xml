@@ -18,12 +18,19 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-		<!--
+		
+		<!-- spring-security-taglibs -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		</dependency>
+
+		<!-- spring-boot-starter-security -->		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		-->
+		
 		<!-- validation -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>

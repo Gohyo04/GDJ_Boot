@@ -1,5 +1,6 @@
-  <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
@@ -20,6 +21,7 @@
                             </div>
                         </div>
                     </form>
+
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -48,7 +50,24 @@
                             </div>
                         </li>
 
+						<!------ 로그인 전 보이는 구간 시작 ------->
+						<sec:authorize access="!isAuthenticated">
+							<li class="nav-item mx-1">
+								<a href="/member/add" class="nav-link">
+									<i style="color:black" class="fas fa-user-plus"></i>
+								</a>
+							</li>
+							<li class="nav-item mx-1">
+								<a href="/member/login" class="nav-link">
+									<i style="color:black" class="fas fa-sign-in-alt"></i>
+								</a>
+							</li>
+						</sec:authorize>
+						<!------ 로그인 전 보이는 구간 마지막 ------->
+
+						<!----- 로그인 성공시 보이는 구간 시작 ----->
                         <!-- Nav Item - Alerts -->
+                        <sec:authorize access="isAuthenticated()">
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -191,11 +210,12 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="/member/logout" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
                             </div>
                         </li>
+                        </sec:authorize>
                     </ul>
                 </nav>

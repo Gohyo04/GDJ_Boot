@@ -12,6 +12,10 @@
 		INSERT INTO MEMBER 
 		VALUES (#{username}, #{password}, #{phone}, #{email}, #{address}, #{name})
 	</insert>
+	
+	<update id="update" parameterType="MemberVO">
+		UPDATE MEMBER SET PASSWORD=#{password} WHERE username = #{username}
+	</update>
 </mapper>
  
  

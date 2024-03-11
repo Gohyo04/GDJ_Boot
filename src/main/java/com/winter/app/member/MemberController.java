@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.winter.app.member.groups.MemberJoinGroup;
 import com.winter.app.member.groups.MemberUpdateGroup;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -22,6 +23,11 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@GetMapping("login")
+	public String login(@ModelAttribute MemberVO memberVO) throws Exception{
+		return "member/login";
+	}
 	
 	@GetMapping("add")
 	public void add(@ModelAttribute MemberVO memberVO) throws Exception{
@@ -51,9 +57,7 @@ public class MemberController {
 	
 	@GetMapping("update")
 	public void update(Model model) throws Exception{
-		MemberVO memberVO = memberService.detail();
 		
-		model.addAttribute("memberVO",memberVO);
 	}
 	
 	@PostMapping("update")
