@@ -1,6 +1,11 @@
 package com.winter.app.member;
 
+import java.util.Enumeration;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -66,6 +71,29 @@ public class MemberController {
 			return "member/update";
 		}
 		return "redirect:/";
+	}
+	
+	@GetMapping("page")
+	public void page(HttpSession session)throws Exception{
+		Enumeration<String> en = session.getAttributeNames();
+		
+		while(en.hasMoreElements()) {
+			log.info("===Attribute : {}===",en.nextElement());	
+		}
+		// type을 몰라서
+		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+		log.info("===obj : {}===",obj);
+		
+		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
+		String name = contextImpl.getAuthentication().getName();
+		MemberVO memberVO = (MemberVO)contextImpl.getAuthentication().getPrincipal();
+		
+		log.info("===name : {}===",name);
+		log.info("===memberVO : {}===",memberVO);
+		
+		SecurityContext context = SecurityContextHolder.getContext();
+		
+//		"member/page";
 	}
 }
 

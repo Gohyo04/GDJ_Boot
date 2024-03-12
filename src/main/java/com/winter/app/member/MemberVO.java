@@ -1,8 +1,12 @@
 package com.winter.app.member;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.winter.app.member.groups.MemberJoinGroup;
@@ -36,11 +40,17 @@ public class MemberVO implements UserDetails{
 	private String address;
 	private String name;
 	
+	private List<RoleVO> roleVOs;
+	
 	// security
-	@Override
+	@Override		// 권한 관리(검증) 메서드
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		for(RoleVO roleVO : roleVOs) {
+			GrantedAuthority g = new SimpleGrantedAuthority(roleVO.getRoleName());
+			authorities.add(g);
+		}
+		return authorities;
 	}
 	
 	// true 일때 만료x, 잠김x, 사용o 

@@ -40,6 +40,7 @@ public class SecurityConfig{
 						authorizeHttpRequests
 							.requestMatchers("/").permitAll()
 							.requestMatchers("/member/add").permitAll()
+							.requestMatchers("/member/page", "/member/logout").authenticated()
 							.requestMatchers("/notice/list").authenticated()			// 로그인한 사용자만 입장 auth = 인증
 							.requestMatchers("/notice/add", "/notice/delete").hasRole("ADMIN")
 							.requestMatchers("/notice/update").hasAnyRole("ADMIN", "MANAGER")

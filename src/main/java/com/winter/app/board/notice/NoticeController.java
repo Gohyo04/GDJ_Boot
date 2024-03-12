@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,12 +45,12 @@ public class NoticeController {
 		return "board/list";
 	}
 	
-//	@GetMapping("add")
+	@GetMapping("add")
 	public String add() throws Exception{
 		return "board/add";
 	}
 	
-	@GetMapping("add")
+	@PostMapping("add")
 	public String add(HttpSession session,NoticeVO noticeVO, MultipartFile[] attach) throws Exception{
 		
 		if(session.getAttribute("member") != null) {
