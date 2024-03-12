@@ -30,8 +30,21 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@GetMapping("login")
-	public String login(@ModelAttribute MemberVO memberVO) throws Exception{
-		return "member/login";
+	public String login(@ModelAttribute MemberVO memberVO, HttpSession session) throws Exception{
+		
+		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+
+		if(obj == null) {
+			return "member/login";
+		}
+		
+		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
+		String user = contextImpl.getAuthentication().getPrincipal().toString();
+		if(user.equals("anonymousUser")) {
+			return "member/login";
+		}
+		
+		return "redirect:/";
 	}
 	
 	@GetMapping("add")
@@ -80,7 +93,7 @@ public class MemberController {
 		while(en.hasMoreElements()) {
 			log.info("===Attribute : {}===",en.nextElement());	
 		}
-		// type을 몰라서
+		// type을 몰라서 일단 Object 
 		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
 		log.info("===obj : {}===",obj);
 		

@@ -43,6 +43,13 @@ public class MemberVO implements UserDetails{
 	private List<RoleVO> roleVOs;
 	
 	// security
+	private boolean accountNonExpired;			// 아이디가 없거나 만료
+	private boolean accountNonLocked;			// 계정 잠김
+	private boolean credentialsNonExpired;		// 비밀번호 유효기간 종료
+	private boolean enabled;					// 휴면 계정
+	
+	
+	// security
 	@Override		// 권한 관리(검증) 메서드
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
@@ -52,28 +59,5 @@ public class MemberVO implements UserDetails{
 		}
 		return authorities;
 	}
-	
-	// true 일때 만료x, 잠김x, 사용o 
-	@Override	// 계정 만료?
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-	@Override	// 계정 잠김?
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-	@Override	// 비밀번호 만료?
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-	@Override	// 사용가능한 계정인가?
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-	
 	
 }

@@ -1,5 +1,6 @@
 package com.winter.app.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,9 +15,15 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig{
 	
+	@Autowired
+	private SecurityLoginSuccessHandler handler;
+	
+	@Autowired
+	private SecurityLoginFailHandler failHandler; 
+	
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() throws Exception{
-		// /resources/static/**	 ->  ignore
+		// /resources/static/**	 ->  ignore(인증/인가가 불필요한 유형?경로)
 		return web -> web
 						.ignoring()
 						.requestMatchers("/css/**")
@@ -51,7 +58,10 @@ public class SecurityConfig{
 						(login) -> 
 							login
 								.loginPage("/member/login")
-								.defaultSuccessUrl("/") 		// login 성공시
+//								.defaultSuccessUrl("/") 		// login 성공시
+								.successHandler(handler)		// login 성공시2
+//								.failureUrl("/") 				// login 실패시 default는 로그인 페이지
+								.failureHandler(failHandler)				// login 실패시2
 //								.passwordParameter("pw")	파라미터 이름을 path에서 password이 아닐경우 설정
 //								.usernameParameter("id")	파라미터 이름을 path에서 username이 아닐경우 설정
 								.permitAll()
@@ -60,7 +70,8 @@ public class SecurityConfig{
 							(logout -> 
 								logout
 									.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-									.logoutSuccessUrl("/")
+									.logoutSuccessUrl("/")			// 로그아웃 성공시
+//									.logoutSuccessHandler("")		// 로그아웃 성공시2
 									.invalidateHttpSession(true)	// 로그아웃시 세션 만료 (세션 삭제)
 									.permitAll()
 							)
