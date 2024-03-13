@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import com.winter.app.member.MemberService;
 
 @Configuration
 @EnableWebSecurity
@@ -19,7 +19,10 @@ public class SecurityConfig{
 	private SecurityLoginSuccessHandler handler;
 	
 	@Autowired
-	private SecurityLoginFailHandler failHandler; 
+	private SecurityLoginFailHandler failHandler;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() throws Exception{
@@ -65,25 +68,47 @@ public class SecurityConfig{
 //								.passwordParameter("pw")	파라미터 이름을 path에서 password이 아닐경우 설정
 //								.usernameParameter("id")	파라미터 이름을 path에서 username이 아닐경우 설정
 								.permitAll()
-					) // formLogin 끝부분
-					.logout(
-							(logout -> 
-								logout
-									.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-									.logoutSuccessUrl("/")			// 로그아웃 성공시
+				) // formLogin 끝부분
+				.logout(
+					(logout -> 
+						logout
+							.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+							.logoutSuccessUrl("/")			// 로그아웃 성공시
 //									.logoutSuccessHandler("")		// 로그아웃 성공시2
-									.invalidateHttpSession(true)	// 로그아웃시 세션 만료 (세션 삭제)
-									.permitAll()
-							)
-					);
+							.invalidateHttpSession(true)	// 로그아웃시 세션 만료 (세션 삭제)
+							.permitAll()
+					)
+				)// logout 끝부분
+				.rememberMe(
+					(rememberMe ->
+						rememberMe
+							.rememberMeParameter("rememberMe")
+							.tokenValiditySeconds(600)
+							.key("rememberMe")
+							.userDetailsService(memberService)
+							.authenticationSuccessHandler(handler)
+							.useSecureCookie(false)
+					)		
+				)// rememberMe 끝부분
+				.sessionManagement(
+					(sessionManagement) -> 
+						sessionManagement
+							.maximumSessions(1)						// 최대 세션
+							.maxSessionsPreventsLogin(false)		// 이전 사용자 session 만료
+							.expiredUrl("/expired")
+				) // sessionManagement 끝
+				
+				
+				
+				;
+											
+											
+											
+										
+									
+
 		
 		return security.build();
-	}
-	
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		// password 암호화 해주는 객체
-		return new BCryptPasswordEncoder();
 	}
 	
 }
