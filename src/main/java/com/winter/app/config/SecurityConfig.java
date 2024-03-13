@@ -64,18 +64,18 @@ public class SecurityConfig{
 //								.defaultSuccessUrl("/") 		// login 성공시
 								.successHandler(handler)		// login 성공시2
 //								.failureUrl("/") 				// login 실패시 default는 로그인 페이지
-								.failureHandler(failHandler)				// login 실패시2
-//								.passwordParameter("pw")	파라미터 이름을 path에서 password이 아닐경우 설정
-//								.usernameParameter("id")	파라미터 이름을 path에서 username이 아닐경우 설정
+								.failureHandler(failHandler)	// login 실패시2
+//								.passwordParameter("pw")		파라미터 이름을 path에서 password이 아닐경우 설정
+//								.usernameParameter("id")		파라미터 이름을 path에서 username이 아닐경우 설정
 								.permitAll()
 				) // formLogin 끝부분
 				.logout(
 					(logout -> 
 						logout
 							.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-							.logoutSuccessUrl("/")			// 로그아웃 성공시
+							.logoutSuccessUrl("/")					// 로그아웃 성공시
 //									.logoutSuccessHandler("")		// 로그아웃 성공시2
-							.invalidateHttpSession(true)	// 로그아웃시 세션 만료 (세션 삭제)
+							.invalidateHttpSession(true)			// 로그아웃시 세션 만료 (세션 삭제)
 							.permitAll()
 					)
 				)// logout 끝부분
