@@ -97,15 +97,16 @@ public class SecurityConfig{
 							.maxSessionsPreventsLogin(false)		// 이전 사용자 session 만료
 							.expiredUrl("/expired")
 				) // sessionManagement 끝
-				
+				.oauth2Login(
+					(oauth2Login) -> 
+						oauth2Login.userInfoEndpoint(
+								(ue) -> ue.userService(memberService)
+					)
+				)//oauth2Login 끝
 				
 				
 				;
 											
-											
-											
-										
-									
 
 		
 		return security.build();

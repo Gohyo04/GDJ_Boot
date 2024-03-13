@@ -19,6 +19,12 @@
 	</properties>
 	<dependencies>
 		
+		<!-- oauth2-client -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+		</dependency>
+		
 		<!-- spring-security-taglibs -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>

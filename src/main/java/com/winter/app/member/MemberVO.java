@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.winter.app.member.groups.MemberJoinGroup;
 import com.winter.app.member.groups.MemberUpdateGroup;
@@ -22,7 +24,7 @@ import lombok.ToString;
 @Getter
 @Setter 
 @ToString
-public class MemberVO implements UserDetails{
+public class MemberVO implements UserDetails,OAuth2User{
 	
 	@NotBlank(message = "입력하세요", groups = {MemberJoinGroup.class, MemberUpdateGroup.class})
 	private String username;
@@ -48,6 +50,15 @@ public class MemberVO implements UserDetails{
 	private boolean credentialsNonExpired;		// 비밀번호 유효기간 종료
 	private boolean enabled;					// 휴면 계정
 	
+	// 카카오, 네이버, 구글 
+	private String social;
+	
+	private Map<String,Object> attributes;
+	
+	@Override
+	public Map<String, Object> getAttributes() {
+		return this.attributes;
+	}
 	
 	// security
 	@Override		// 권한 관리(검증) 메서드
@@ -59,5 +70,5 @@ public class MemberVO implements UserDetails{
 		}
 		return authorities;
 	}
-	
+
 }
