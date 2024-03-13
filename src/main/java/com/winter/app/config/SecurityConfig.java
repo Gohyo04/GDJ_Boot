@@ -74,7 +74,7 @@ public class SecurityConfig{
 						logout
 							.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
 							.logoutSuccessUrl("/")			// 로그아웃 성공시
-//									.logoutSuccessHandler("")		// 로그아웃 성공시2
+//							.logoutSuccessHandler("")		// 로그아웃 성공시2
 							.invalidateHttpSession(true)	// 로그아웃시 세션 만료 (세션 삭제)
 							.permitAll()
 					)
