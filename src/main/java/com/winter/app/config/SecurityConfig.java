@@ -12,6 +12,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.winter.app.member.MemberService;
 
 @Configuration
+//@EnableWebSecurity(debug = true)
 @EnableWebSecurity
 public class SecurityConfig{
 	
@@ -28,6 +29,7 @@ public class SecurityConfig{
 	WebSecurityCustomizer webSecurityCustomizer() throws Exception{
 		// /resources/static/**	 ->  ignore(인증/인가가 불필요한 유형?경로)
 		return web -> web
+//						.debug(false)		//== @EnableWebSecurity(debug = true)
 						.ignoring()
 						.requestMatchers("/css/**")
 						.requestMatchers("/js/**")
