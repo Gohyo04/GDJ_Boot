@@ -19,6 +19,12 @@
 	</properties>
 	<dependencies>
 		
+		<!-- webflux -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		
 		<!-- oauth2-client -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
