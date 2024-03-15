@@ -1,19 +1,21 @@
 package com.winter.app.config;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.logout;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oauth2Login;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.handler;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.winter.app.member.MemberService;
 
-@Configuration
+//@Configuration
 //@EnableWebSecurity(debug = true)
-@EnableWebSecurity
+//@EnableWebSecurity
 public class SecurityConfig{
 	
 	@Autowired
@@ -28,22 +30,22 @@ public class SecurityConfig{
 	@Autowired
 	private MemberService memberService;
 	
-	@Bean
-	WebSecurityCustomizer webSecurityCustomizer() throws Exception{
-		// /resources/static/**	 ->  ignore(인증/인가가 불필요한 유형?경로)
-		return web -> web
-//						.debug(false)		//== @EnableWebSecurity(debug = true)
-						.ignoring()
-						.requestMatchers("/css/**")
-						.requestMatchers("/js/**")
-						.requestMatchers("/vender/**")
-						.requestMatchers("/img/**")
-						.requestMatchers("/favicon/**")
-						;
-	}
+//	@Bean
+//	WebSecurityCustomizer webSecurityCustomizer() throws Exception{
+//		// /resources/static/**	 ->  ignore(인증/인가가 불필요한 유형?경로)
+//		return web -> web
+////						.debug(false)		//== @EnableWebSecurity(debug = true)
+//						.ignoring()
+//						.requestMatchers("/css/**")
+//						.requestMatchers("/js/**")
+//						.requestMatchers("/vender/**")
+//						.requestMatchers("/img/**")
+//						.requestMatchers("/favicon/**")
+//						;
+//	}
 	
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity security) throws Exception{
+	public SecurityFilterChain filterChain() throws Exception{
 //		security.cors()
 //				.and()
 //				.csrf()

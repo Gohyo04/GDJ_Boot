@@ -28,7 +28,7 @@ public class Pager {
 	private String kind;
 	
 	public void makeIndex() {
-		this.startIndex = (this.getPage()-1)*this.getPage();
+		this.startIndex = (this.getPage()-1)*this.getPerPage();
 	}
 	
 	// Getter, Setter

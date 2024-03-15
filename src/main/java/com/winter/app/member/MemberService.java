@@ -10,11 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -24,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 @Transactional(rollbackFor = Exception.class)
-public class MemberService extends DefaultOAuth2UserService implements UserDetailsService{
+public class MemberService {// extends DefaultOAuth2UserService implements UserDetailsService{
 	
 	@Autowired
 	private MemberDAO memberDAO;
@@ -34,48 +29,48 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 	private PasswordEncoder passwordEncoder;
 	
 	// userDetailService
-	@Override
-	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-		log.info("kakao === {}", userRequest);
-		ClientRegistration c = userRequest.getClientRegistration();
-		
-		log.info("clientId ===> {}",c.getClientId());
-		log.info("clientName ===> {}",c.getClientName());
-		
-		OAuth2User user =  super.loadUser(userRequest);
-		
-		log.info("loginUser ===> {}",user.getName());
-		log.info("===> {}", user.getAuthorities());
-		log.info("===> {}",user.getAttributes());
-		log.info("===> {}", user.getAttribute("properties").toString());
-		
-		if(c.getClientName().equals("Kakao")) {
-			user = this.kakao(user);			
-		}
-		
-		
-		((MemberVO)user).setSocial(c.getClientName());
-		
-		return user;
-	}
-	
-	private OAuth2User kakao(OAuth2User oAuth2User){
-		Map<String, Object> map = oAuth2User.getAttribute("properties");
-		MemberVO memberVO = new MemberVO();
-		memberVO.setUsername(oAuth2User.getName());
-		memberVO.setName(map.get("nickname").toString());
-		memberVO.setAttributes(oAuth2User.getAttributes());
-		
-		List<RoleVO> list = new ArrayList<>();
-		RoleVO roleVo = new RoleVO();
-		roleVo.setRoleName("ROLE_MEMBER");
-		
-		list.add(roleVo);
-		
-		memberVO.setRoleVOs(list);
-		
-		return memberVO;
-	}
+//	@Override
+//	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+//		log.info("kakao === {}", userRequest);
+//		ClientRegistration c = userRequest.getClientRegistration();
+//		
+//		log.info("clientId ===> {}",c.getClientId());
+//		log.info("clientName ===> {}",c.getClientName());
+//		
+//		OAuth2User user =  super.loadUser(userRequest);
+//		
+//		log.info("loginUser ===> {}",user.getName());
+//		log.info("===> {}", user.getAuthorities());
+//		log.info("===> {}",user.getAttributes());
+//		log.info("===> {}", user.getAttribute("properties").toString());
+//		
+//		if(c.getClientName().equals("Kakao")) {
+//			user = this.kakao(user);			
+//		}
+//		
+//		
+//		((MemberVO)user).setSocial(c.getClientName());
+//		
+//		return user;
+//	}
+//	
+//	private OAuth2User kakao(OAuth2User oAuth2User){
+//		Map<String, Object> map = oAuth2User.getAttribute("properties");
+//		MemberVO memberVO = new MemberVO();
+//		memberVO.setUsername(oAuth2User.getName());
+//		memberVO.setName(map.get("nickname").toString());
+//		memberVO.setAttributes(oAuth2User.getAttributes());
+//		
+//		List<RoleVO> list = new ArrayList<>();
+//		RoleVO roleVo = new RoleVO();
+//		roleVo.setRoleName("ROLE_MEMBER");
+//		
+//		list.add(roleVo);
+//		
+//		memberVO.setRoleVOs(list);
+//		
+//		return memberVO;
+//	}
 	
 	
 	public int add(MemberVO memberVO) throws Exception{
@@ -117,21 +112,21 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 	}
 
 	
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
-		MemberVO memberVO = new MemberVO();
-		memberVO.setUsername(username);
-		
-		log.info("로그인 진행 ====={}======",username);
-		
-		try {
-			memberVO = memberDAO.getDetail(memberVO);			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return memberVO;
-	}
+//	@Override
+//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+//		MemberVO memberVO = new MemberVO();
+//		memberVO.setUsername(username);
+//		
+//		log.info("로그인 진행 ====={}======",username);
+//		
+//		try {
+//			memberVO = memberDAO.getDetail(memberVO);			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return memberVO;
+//	}
 	
 	
 }
