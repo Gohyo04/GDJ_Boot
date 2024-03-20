@@ -88,7 +88,7 @@ public class SecurityConfig{
 					(rememberMe ->
 						rememberMe
 							.rememberMeParameter("rememberMe")
-							.tokenValiditySeconds(600)
+							.tokenValiditySeconds(600)				// 초단위
 							.key("rememberMe")
 							.userDetailsService(memberService)
 							.authenticationSuccessHandler(handler)
