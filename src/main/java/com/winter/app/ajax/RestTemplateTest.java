@@ -47,7 +47,7 @@ public class RestTemplateTest {
 
 		response.subscribe((r) -> {
 			RestVO restVO = r;
-			log.info("Flux sub ==> {}", restVO);
+//			log.info("Flux sub ==> {}", restVO);
 		});
 		
 //		log.info("Flux RestVO ==> {}",restVO);
@@ -60,7 +60,7 @@ public class RestTemplateTest {
 		
 		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null,null);
 		
-		ResponseEntity<List> response = restTemplate.getForEntity("https://jsonplaceholder.typicode.com/posts", List.class);
+		ResponseEntity<List> response = restTemplate.getForEntity("https://jsonplaceholder.typicode.com/posts/1", List.class);
 		
 		List<RestVO> result = response.getBody();
 		log.info("restVO ===> {}",result);

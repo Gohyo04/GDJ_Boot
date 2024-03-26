@@ -25,7 +25,7 @@ public class NoticeService implements BoardService{
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	@Value("${app.upload.board.noitce}")
+	@Value("${app.upload.board.notice}")
 	private String uploadPath;
 	
 	@Autowired

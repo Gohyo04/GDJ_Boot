@@ -46,7 +46,7 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		
 		log.info("loginUser ===> {}",user.getName());
 		log.info("===> {}", user.getAuthorities());
-		log.info("===> {}",user.getAttributes());
+		log.info("===> {}", user.getAttributes());
 		log.info("===> {}", user.getAttribute("properties").toString());
 		
 		if(c.getClientName().equals("Kakao")) {

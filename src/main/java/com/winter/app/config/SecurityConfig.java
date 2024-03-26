@@ -108,7 +108,6 @@ public class SecurityConfig{
 								(ue) -> ue.userService(memberService)
 					)
 				)//oauth2Login 끝
-
 				;
 											
 
